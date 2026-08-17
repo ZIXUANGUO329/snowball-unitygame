@@ -1,14 +1,15 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Lane Settings")]
-    public float laneDistance = 3f; // The distance between two lanes
+    public float laneDistance = 4.5f; // The distance between two lanes
     private int currentLane = 1; // 0 = Left, 1 = Middle, 2 = Right
 
     [Header("Movement Settings")]
-    public float forwardSpeed = 8f; // The speed at which the player moves forward
+    //public float forwardSpeed = 8f; // The speed at which the player moves forward
     public float laneChangeSpeed = 10f; // The speed at which the player changes lanes
 
     [Header("Jump Settings")]
@@ -45,9 +46,10 @@ public class PlayerController : MonoBehaviour
 
     void ChangeLane(int direction)
     {
-        int newLane = Mathf.Clamp(currentLane + direction, 0, 2);
+        int newLane = currentLane + direction;
+        newLane = Mathf.Clamp(newLane, 0, 2); // Ensure the new lane is within bounds
         currentLane = newLane;
-        targetPositonX = (currentLane - 1) * laneDistance;
+        targetPositonX = (currentLane - 1) * laneDistance; // Calculate the new target position based on the lane
     }
     void HandleJumpInput()
     {
@@ -59,10 +61,10 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
-        Vector3 forwardMove = Vector3.forward * forwardSpeed * Time.fixedDeltaTime;
-        float newX = Mathf.Lerp(rb.position.x, targetPositonX, laneChangeSpeed * Time.fixedDeltaTime);
-        Vector3 newPosition = new Vector3(newX, rb.position.y, rb.position.z) + forwardMove;
+        float newX = Mathf.MoveTowards(rb.position.x, targetPositonX, laneChangeSpeed * Time.fixedDeltaTime);
+        Vector3 newPosition = new Vector3(newX, rb.position.y, rb.position.z);
         rb.MovePosition(newPosition);
+        
         if (rb.linearVelocity.y < 0)
         {
             rb.linearVelocity += Vector3.up * Physics.gravity.y * (fallSpeed - 1f) * Time.fixedDeltaTime;
