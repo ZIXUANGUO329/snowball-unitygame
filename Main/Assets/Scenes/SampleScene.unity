@@ -731,6 +731,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1416883862}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1289289312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1289289314}
+  - component: {fileID: 1289289313}
+  m_Layer: 0
+  m_Name: PickupSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1289289313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289289312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c569335b25e1e08408761c1be6eb3ef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupSpawner
+  snowflakePrefab: {fileID: 3282055775188917876, guid: 76cb64229705db54e8417deaf5c3c478, type: 3}
+  skiPolePrefab: {fileID: 1994255699692599506, guid: 50340716da73b784da8e0364137313c4, type: 3}
+  laneDistance: 4.5
+  spawnZ: 40
+  minInterval: 0.2
+  maxInterval: 0.4
+  skiPoleChance: 0.025
+--- !u!4 &1289289314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289289312}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.88236, y: -0, z: 9.23644}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1416883857
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,7 +797,7 @@ GameObject:
   - component: {fileID: 1416883858}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -768,6 +819,7 @@ MonoBehaviour:
   baseSize: 0.5
   stage1Size: 0.75
   stage2Size: 1
+  snowflakePerStage: 30
 --- !u!114 &1416883859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,8 +834,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   laneDistance: 4.5
   laneChangeSpeed: 25
-  jumpForce: 5
-  fallSpeed: 7
+  jumpForce: 6
+  fallSpeed: 8
 --- !u!135 &1416883860
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -859,3 +911,4 @@ SceneRoots:
   - {fileID: 243178280}
   - {fileID: 823800761}
   - {fileID: 1416883862}
+  - {fileID: 1289289314}

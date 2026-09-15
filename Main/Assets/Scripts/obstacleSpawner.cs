@@ -39,7 +39,7 @@ public class obstacleSpawner : MonoBehaviour
         float x = (lane - 1) * lanDistance;
         GameObject prefabToSpawn = (Random.value < 0.5f) ? lowRockPrefab : tallRockPrefab;
 
-        Vector3 spawnPositon = new Vector3(x, 0f, spawnZ);
+        Vector3 spawnPositon = new Vector3(x, prefabToSpawn.transform.position.y, spawnZ);
         Instantiate(prefabToSpawn, spawnPositon, Quaternion.identity);
 
     }
