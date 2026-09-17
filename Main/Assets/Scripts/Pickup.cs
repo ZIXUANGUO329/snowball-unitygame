@@ -9,14 +9,15 @@ public class Pickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Growthcontroller growth = other.GetComponent<Growthcontroller>();
-            if (type == PickupType.Snowflake )
+            if (type == PickupType.Snowflake)
             {
+                Growthcontroller growth = other.GetComponent<Growthcontroller>();
                 growth.CollectSnowflake();
             }
             else if (type == PickupType.SkiPole)
             {
-                growth.CollectSkiPole();
+                AbilityController ability = other.GetComponent<AbilityController>();
+                ability.CollectSkiPole();
             }
 
             Destroy(gameObject);

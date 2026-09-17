@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Growthcontroller : MonoBehaviour
@@ -18,11 +17,25 @@ public class Growthcontroller : MonoBehaviour
     [Header("Pickup Settings")]
     public int snowflakePerStage = 30;
     private int snowflakeCount = 0;
-    private int skiPoleCount = 0;
+   
 
+    [Header("Ability Settings")]
+    public float giantSize = 12f; // Size when the ability is activated
+    public bool isAbilityActive = false; // Flag to check if the ability is active
+    private GrowthStage preAbilityStage; // Store the stage before the ability was activated
+    private PlayerController playerController; // Reference to the PlayerController script
+    public Transform cameraTransform; // Reference to the camera transform
+    public Vector3 giantCameraOffset = new Vector3(0f, 8f, -16f); // Offset for the camera when in giant mode
+    private Vector3 normalCameraOffset;
     void Start()
     {
         sphereCollider = GetComponent<SphereCollider>();
+        playerController = GetComponent<PlayerController>();
+
+        if (cameraTransform != null)
+        {
+            normalCameraOffset = cameraTransform.localPosition; // Store the normal camera offset
+        }
         ApplySize(); 
     }
 
@@ -58,6 +71,33 @@ public class Growthcontroller : MonoBehaviour
         }
     }
 
+    public void ActivateGiantMode()
+    {
+        playerController.ResetToCenterLane(); // Reset the player to the center lane when activating the ability
+        preAbilityStage = currentStage; // Store the current stage before activating the ability
+        isAbilityActive = true;
+
+        modelTransform.localScale = Vector3.one * giantSize; // Set the model size to giant size
+        sphereCollider.radius = giantSize / 2f; // Adjust the collider size for giant mode
+
+        if(cameraTransform != null)
+        {
+            cameraTransform.localPosition = giantCameraOffset; // Adjust the camera position for giant mode
+        }
+    }
+
+    public void DeactivateGiantMode()
+    {
+        isAbilityActive = false;
+        currentStage = preAbilityStage; // Restore the stage to what it was before the ability
+        ApplySize(); // Apply the size based on the restored stage
+
+        if(cameraTransform != null)
+        {
+            cameraTransform.localPosition = normalCameraOffset; // Restore the camera position to normal
+        }
+    }
+
     public void CollectSnowflake()
     {
         snowflakeCount++; 
@@ -69,15 +109,7 @@ public class Growthcontroller : MonoBehaviour
         }
     }
 
-    public void CollectSkiPole()
-    {
-        skiPoleCount++;
-        
-        if (skiPoleCount >= 3)
-        {
-            Debug.Log("skipolecount is full will fix in Phase 6");
-        }
-    }
+   
     void ApplySize()
     {
         float diameter = baseSize;
@@ -92,8 +124,15 @@ public class Growthcontroller : MonoBehaviour
     {
         if(other.CompareTag("Obstacle"))
         {
-            TakeHit();
-            Destroy(other.gameObject);
+            if (isAbilityActive)
+            {
+                Destroy(other.gameObject);
+            }
+            else
+            {
+                TakeHit();
+                Destroy(other.gameObject);
+            }
         }
     }
     

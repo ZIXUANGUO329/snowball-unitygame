@@ -1,6 +1,6 @@
-using Unity.VisualScripting;
+
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,10 +19,11 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
     private float targetPositonX;
-
+    private Growthcontroller growth;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        growth = GetComponent<Growthcontroller>();
         targetPositonX = transform.position.x;
     }
 
@@ -30,6 +31,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (GameManager.Instance.isGameOver) return;
+        if (growth.isAbilityActive) return; // Disable input when the ability is active
+
         HandleLaneInput();
         HandleJumpInput();
     }
@@ -51,6 +54,13 @@ public class PlayerController : MonoBehaviour
         newLane = Mathf.Clamp(newLane, 0, 2); // Ensure the new lane is within bounds
         currentLane = newLane;
         targetPositonX = (currentLane - 1) * laneDistance; // Calculate the new target position based on the lane
+    }
+
+    public void ResetToCenterLane()
+    {
+        currentLane = 1; // Reset to the middle lane
+        targetPositonX = 0f; // Reset the target position to the center
+        rb.position = new Vector3(0f , rb.position.y, rb.position.z); // Move the player to the center lane immediately
     }
     void HandleJumpInput()
     {
