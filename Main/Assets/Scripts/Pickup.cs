@@ -7,19 +7,23 @@ public class Pickup : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if(other.CompareTag("Player"))
         {
-            if (type == PickupType.Snowflake)
-            {
-                Growthcontroller growth = other.GetComponent<Growthcontroller>();
-                growth.CollectSnowflake();
-            }
-            else if (type == PickupType.SkiPole)
-            {
-                AbilityController ability = other.GetComponent<AbilityController>();
-                ability.CollectSkiPole();
-            }
+            Growthcontroller growth = other.GetComponent<Growthcontroller>();
 
+            if (!growth.isAbilityActive)
+            {
+                if (type == PickupType.Snowflake)
+                {
+                    growth.CollectSnowflake();
+                }
+                else if (type == PickupType.SkiPole)
+                {
+                    AbilityController ability = other.GetComponent<AbilityController>();
+                    ability.CollectSkiPole();
+                }
+
+            }
             Destroy(gameObject);
         }
     }

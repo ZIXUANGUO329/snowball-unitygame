@@ -821,7 +821,7 @@ MonoBehaviour:
   stage1Size: 0.75
   stage2Size: 1
   snowflakePerStage: 30
-  giantSize: 8
+  giantSize: 8.5
   isAbilityActive: 0
   cameraTransform: {fileID: 330585546}
   giantCameraOffset: {x: 0, y: 8, z: -16}
