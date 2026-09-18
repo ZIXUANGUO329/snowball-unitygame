@@ -21,6 +21,7 @@ public class Pickup : MonoBehaviour
                 {
                     AbilityController ability = other.GetComponent<AbilityController>();
                     ability.CollectSkiPole();
+                    ScoreManager.Instance.AddSkiPoleScore();
                 }
 
             }

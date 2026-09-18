@@ -14,6 +14,8 @@ public class PickupSpawner : MonoBehaviour
     public float spawnZ = 40f;
     public float minInterval = 0.8f;
     public float maxInterval = 1f;
+    public float hardMinInterval = 0.16f;
+    public float hardMaxInterval = 0.2f;
 
     [Header("Ski Pole Chance Settings")]
     [UnityEngine.Range(0f, 1f)]
@@ -27,7 +29,9 @@ public class PickupSpawner : MonoBehaviour
     {
         while (true)
         {
-            float waitTime = Random.Range(minInterval, maxInterval);
+            float currentMin = Mathf.Lerp(minInterval, hardMinInterval, GameManager.Instance.difficulty);
+            float currentMax = Mathf.Lerp(maxInterval, hardMaxInterval, GameManager.Instance.difficulty);
+            float waitTime = Random.Range(currentMin, currentMax);
             yield return new WaitForSeconds(waitTime);
 
             if (!GameManager.Instance.isGameOver)

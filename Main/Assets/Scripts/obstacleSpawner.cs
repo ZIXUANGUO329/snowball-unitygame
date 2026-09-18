@@ -1,7 +1,6 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class obstacleSpawner : MonoBehaviour
 {
@@ -16,6 +15,8 @@ public class obstacleSpawner : MonoBehaviour
     public float spawnZ = 40f;
     public float minInterval = 1f;
     public float maxInterval = 2f;
+    public float hardMinInterval = 0.3f;
+    public float hardMaxInterval = 0.5f;
 
     void Start()
     {
@@ -24,12 +25,18 @@ public class obstacleSpawner : MonoBehaviour
 
     IEnumerator SpawnLoop()
     {
+        
         while (true)
         {
-            float waitTime = Random.Range(minInterval, maxInterval);
+            float currentMin = Mathf.Lerp(minInterval, hardMinInterval, GameManager.Instance.difficulty);
+            float currentMax = Mathf.Lerp(maxInterval, hardMaxInterval, GameManager.Instance.difficulty);
+            float waitTime = Random.Range(currentMin, currentMax);
             yield return new WaitForSeconds(waitTime);
 
-            SpawnRock();
+            if (!GameManager.Instance.isGameOver)
+            {
+                SpawnRock();
+            }
         }
 
     }
