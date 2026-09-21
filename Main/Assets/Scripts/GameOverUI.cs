@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 public class GameOverUI : MonoBehaviour
 {
     public static GameOverUI Instance;
@@ -28,5 +29,36 @@ public class GameOverUI : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
         finalScoreText.text = "Score: " + ScoreManager.Instance.GetCurrentScore();
+    }
+
+    public void OnSubmitName()
+    {
+        string playerName = nameInputField.text;
+
+        if (string.IsNullOrEmpty(playerName))
+        {
+            playerName = "Player";
+        }
+
+        int finalScore = ScoreManager.Instance.GetCurrentScore();
+
+        LeaderboardManager.Instance.SaveScore(playerName, finalScore);
+        gameOverPanel.SetActive(false);
+        ShowLeaderboard();
+        
+    }
+
+    void ShowLeaderboard()
+    {
+        leaderboardPanel.SetActive(true);
+
+        string display = "";
+        List<ScoreEntry> entries = LeaderboardManager.Instance.GetLeaderboard();
+        for(int i = 0; i < entries.Count; i++)
+        {
+            display += (i + 1) + ". " + entries[i].playerName + " - " + entries[i].score + "\n";
+        }
+
+        leaderboardText.text = display;
     }
 }
