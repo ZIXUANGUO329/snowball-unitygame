@@ -17,7 +17,7 @@ public class Growthcontroller : MonoBehaviour
     [Header("Pickup Settings")]
     public int snowflakePerStage = 30;
     private int snowflakeCount = 0;
-   
+    private int totalSnowflakesThisRun = 0;
 
     [Header("Ability Settings")]
     public float giantSize = 12f; // Size when the ability is activated
@@ -100,7 +100,8 @@ public class Growthcontroller : MonoBehaviour
 
     public void CollectSnowflake()
     {
-        snowflakeCount++; 
+        snowflakeCount++;
+        totalSnowflakesThisRun++;
 
         if (snowflakeCount >= snowflakePerStage)
         {
@@ -136,4 +137,8 @@ public class Growthcontroller : MonoBehaviour
         }
     }
     
+     public int GetTotalSnowflakesThisRun()
+    {
+        return totalSnowflakesThisRun;
+    }
 }
