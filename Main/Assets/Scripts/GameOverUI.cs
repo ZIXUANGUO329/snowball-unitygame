@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 public class GameOverUI : MonoBehaviour
 {
     public static GameOverUI Instance;
@@ -14,6 +15,10 @@ public class GameOverUI : MonoBehaviour
     public GameObject leaderboardPanel;
     public TMP_Text leaderboardText;
 
+    [Header("Shop Panel")]
+    public GameObject shopPanel;
+    public TMP_Text currencyText;
+
     void Awake()
     {
         Instance = this;
@@ -23,6 +28,7 @@ public class GameOverUI : MonoBehaviour
     {
         gameOverPanel.SetActive(false);
         leaderboardPanel.SetActive(false);
+        shopPanel.SetActive(false);
     }
 
     public void ShowGameOverPanel()
@@ -60,5 +66,36 @@ public class GameOverUI : MonoBehaviour
         }
 
         leaderboardText.text = display;
+    }
+
+    public void OpenShop()
+    {
+        leaderboardPanel.SetActive(false);
+        shopPanel.SetActive(true);
+        UpdateCurrencyText();
+
+    }
+
+    public void UpdateCurrencyText()
+    {
+        currencyText.text = "Snowflakes: " + MetaProgressManager.Instance.currency;
+    }
+
+    public void OnBuyDash()
+    {
+        MetaProgressManager.Instance.PurchaseDash();
+        UpdateCurrencyText();
+    }
+
+    public void OnBuySpeedBoost()
+    {
+        MetaProgressManager.Instance.PurchaseSpeedBoost();
+        UpdateCurrencyText();
+    }
+
+    public void OnBuyBiggerStart()
+    {
+        MetaProgressManager.Instance.PurchaseBiggerStart();
+        UpdateCurrencyText();
     }
 }

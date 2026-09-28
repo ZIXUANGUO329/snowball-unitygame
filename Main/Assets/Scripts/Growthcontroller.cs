@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Growthcontroller : MonoBehaviour
@@ -27,6 +28,8 @@ public class Growthcontroller : MonoBehaviour
     public Transform cameraTransform; // Reference to the camera transform
     public Vector3 giantCameraOffset = new Vector3(0f, 8f, -16f); // Offset for the camera when in giant mode
     private Vector3 normalCameraOffset;
+    public bool isInvincible = false;
+    public float dashInvincibilityDuration = 5f;
     void Start()
     {
         sphereCollider = GetComponent<SphereCollider>();
@@ -36,8 +39,29 @@ public class Growthcontroller : MonoBehaviour
         {
             normalCameraOffset = cameraTransform.localPosition; // Store the normal camera offset
         }
+
+        if (MetaProgressManager.Instance.hasBiggerStart is true)
+        {
+            currentStage = GrowthStage.Stage1;
+        }
+        else
+        {
+            currentStage = GrowthStage.Base;
+        }
+        if (MetaProgressManager.Instance.hasDash is true)
+        {
+            StartCoroutine(DashInvincibility());
+        }
         ApplySize(); 
     }
+    IEnumerator DashInvincibility()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(dashInvincibilityDuration);
+        isInvincible = false;
+        
+    }
+
 
     public void Grow()
     {
@@ -125,7 +149,7 @@ public class Growthcontroller : MonoBehaviour
     {
         if(other.CompareTag("Obstacle"))
         {
-            if (isAbilityActive)
+            if (isAbilityActive || isInvincible)
             {
                 Destroy(other.gameObject);
             }
