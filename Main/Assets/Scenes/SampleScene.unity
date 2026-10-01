@@ -2128,7 +2128,7 @@ MonoBehaviour:
   maxInterval: 0.4
   hardMinInterval: 0.16
   hardMaxInterval: 0.2
-  skiPoleChance: 0.03
+  skiPoleChance: 0.652
 --- !u!4 &1289289314
 Transform:
   m_ObjectHideFlags: 0
