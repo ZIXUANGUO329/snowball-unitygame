@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7616562335264916035}
   - component: {fileID: 2709959277027164978}
   - component: {fileID: 5477318586825018405}
+  - component: {fileID: 7820725909482946431}
   m_Layer: 0
   m_Name: SkiPole_Pickup
   m_TagString: Untagged
@@ -69,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 87050a730312fef4c83b1119da03b4d5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -142,3 +143,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::scrollMover
   destroyZ: -10
+--- !u!114 &7820725909482946431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994255699692599506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36dc8e2c696ee4c498705f944f97a8a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupSpin
+  rotationSpeed: 200
+  rotationAxis: {x: 0, y: 1, z: 0}
