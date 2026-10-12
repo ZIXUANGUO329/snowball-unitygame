@@ -65,12 +65,15 @@ public class Growthcontroller : MonoBehaviour
 
     public void Grow()
     {
+        
         if (currentStage == GrowthStage.Base)
         { 
+            AudioManager.Instance.PlayBaseToStage1Sound();
             currentStage = GrowthStage.Stage1;
         }
         else if (currentStage == GrowthStage.Stage1)
         {
+            AudioManager.Instance.PlayStage1ToStage2Sound();
             currentStage = GrowthStage.Stage2;
         }
         ApplySize();
@@ -79,24 +82,29 @@ public class Growthcontroller : MonoBehaviour
     public void TakeHit()
     {
         if (GameManager.Instance.isGameOver) return;
+        
         if (currentStage == GrowthStage.Stage2)
         {
+            AudioManager.Instance.PlayHitObstacleSound();
             currentStage = GrowthStage.Stage1;
             ApplySize();
         }
         else if (currentStage == GrowthStage.Stage1)
         {
+            AudioManager.Instance.PlayHitObstacleSound();
             currentStage = GrowthStage.Base;
             ApplySize();
         }
         else
         {
+            AudioManager.Instance.PlayGameOverSound();
             GameManager.Instance.GameOver();
         }
     }
 
     public void ActivateGiantMode()
     {
+        AudioManager.Instance.PlayGiantModeSound();
         playerController.ResetToCenterLane(); // Reset the player to the center lane when activating the ability
         preAbilityStage = currentStage; // Store the current stage before activating the ability
         isAbilityActive = true;
@@ -124,6 +132,7 @@ public class Growthcontroller : MonoBehaviour
 
     public void CollectSnowflake()
     {
+        AudioManager.Instance.PlayCollectSnowflakeSound();
         snowflakeCount++;
         totalSnowflakesThisRun++;
 

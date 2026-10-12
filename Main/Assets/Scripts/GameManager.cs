@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -52,6 +53,11 @@ public class GameManager : MonoBehaviour
         scrollSpeed = 0f;
         Debug.Log("Game Over!");
         GameOverUI.Instance.ShowGameOverPanel();
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
 

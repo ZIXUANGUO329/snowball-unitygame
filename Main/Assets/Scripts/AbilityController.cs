@@ -8,7 +8,7 @@ public class AbilityController : MonoBehaviour
     public Growthcontroller growth;
     public void CollectSkiPole()
     {
-
+        AudioManager.Instance.PlayCollectSkiPoleSound();
         skiPoleCount++;
         if (skiPoleCount >= skiPoleSlots)
         {
