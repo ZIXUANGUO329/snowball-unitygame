@@ -54,7 +54,7 @@ public class GameOverUI : MonoBehaviour
         
     }
 
-    void ShowLeaderboard()
+    public void ShowLeaderboard()
     {
         leaderboardPanel.SetActive(true);
 
