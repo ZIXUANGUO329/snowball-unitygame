@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 public class GameOverUI : MonoBehaviour
 {
     public static GameOverUI Instance;

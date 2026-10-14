@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     [Header("status")]
     public bool isGameOver = false;
-    public bool hasPlayedBefore = false;
+    private static bool hasPlayedBefore = false;
 
     [Header("Difficulty Curve")]
     public AnimationCurve difficultyCurve;
